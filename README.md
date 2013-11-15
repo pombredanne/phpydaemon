@@ -138,3 +138,26 @@ require_once 'phpydaemon/Client.php';
 $client = new Client();
 $html = $client->getStatusHtml();
 ```
+
+
+### Preserving userId
+
+In many cases it may be useful to let the PHP background job run as the same user that queued it.
+You can pass user id as a parameter when queueing the job, and act on this in your PHP callback:
+
+Queue the job with reference to a user id:
+```php
+require_once 'phpydaemon/Client.php';
+$client = new Client();
+$jobId = $client->queue('myapp.FileSystem.delete', array('/'), $myApp->getUser()->getId());
+```
+
+Switch to that user before running the job in your callback:
+```php
+require_once 'phpydaemon/Callback.php';
+use phpydaemon\Callback;
+
+$job = Callback::getJob();
+MyApp::switchUser($job->userId);
+Callback::runJob($job);
+```
