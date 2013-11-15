@@ -18,7 +18,7 @@ class Client {
 		$this->url = "http://{$host}:{$port}";
 	}
 
-	function queue($method, $args, $userId) {
+	function queue($method, $args, $userId=null) {
 		return $this->curl_post('/api/run', array(
 			'method' => $method,
 			'args'   => $args,
