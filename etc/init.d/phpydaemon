@@ -1,0 +1,40 @@
+#! /bin/bash
+#
+# /etc/init.d/phpydaemon
+#
+### BEGIN INIT INFO
+# Provides: phpydaemon
+# Required-Start: 
+# Should-Start: 
+# Required-Stop: 
+# Should-Stop:
+# Default-Start:  3 5
+# Default-Stop:   0 1 2 6
+# Short-Description: Python PHP runner daemon
+# Description:    Python PHP run daemon
+### END INIT INFO
+
+NAME=phpydaemon
+PYSCRIPT=phpydaemon
+
+case "$1" in
+  start)
+    echo "Starting $NAME"
+    $PYSCRIPT start
+    ;;
+  stop)
+    echo "Stopping $NAME"
+    $PYSCRIPT stop
+    ;;
+  restart)
+    echo "Restarting $NAME"
+    $PYSCRIPT restart
+    ;;
+  *)
+    echo "Usage: $0 {start|stop|restart}"
+    exit 1
+    ;;
+esac
+
+exit 0
+

@@ -1,0 +1,22 @@
+{
+  "http": {
+    "host": "localhost",
+    "port": 9713,
+    "verbose": false
+  },
+  "php": {
+    // Your PHP script here
+    "callback": null,
+  },
+  "workers": [
+    //{ "method": "some.namespace.YourClass.yourMethod", "paralell": 4 },
+    { "fallback": true, "paralell": 2 }
+  ],
+  "log": {
+    "debug": "/var/log/phpydaemon.log",
+    "error": "/var/log/phpydaemon.err"
+  },
+  "run": {
+    "pidfile": "/var/run/phpydaemon.pid"
+  }
+}
