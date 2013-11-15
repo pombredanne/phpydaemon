@@ -60,7 +60,7 @@ To get started, you can skip this part. But when you feel the need to control th
 }
 ```
 
-_The **fallback** item here is the default, so if you don't configure anything, phpydaemon will run two instances of any PHP call in paralell._
+_The **fallback** item here is the default, so if you don't configure anything, phpydaemon will run two PHP calls in paralell at a time._
 
 
 Usage
@@ -83,7 +83,7 @@ $ curl -X POST \
 
 Queue a PHP job to run (using PHP)
 ```php
-require_once 'phpydaemon/Client.php';
+require 'phpydaemon/Client.php';
 $client = new Client();
 $jobId = $client->queue('myapp.FileSystem.delete', array('/'));
 ```
@@ -100,11 +100,13 @@ $object->delete('/');
 ### Getting statistics and job status
 
 The daemon exposes a simple web UI that shows the different workers and running jobs.
-It's available at http://localhost:9713 (or whatever host/port you configured under http in phpydaemon.json).
 
-You can also fetch status info via the webservice.
+```
+google-chrome http://localhost:9713
+```
 
-Fetch statistics about running, queued and complete jobs:
+You can also fetch stats via the webservice:
+
 ```
 $ curl -X GET \
   -H 'Content-Type: application/json' \
@@ -113,7 +115,7 @@ $ curl -X GET \
 
 Or in PHP:
 ```php
-require_once 'phpydaemon/Client.php';
+require 'phpydaemon/Client.php';
 $client = new Client();
 print_r($client->getStats());
 ```
@@ -127,18 +129,17 @@ $ curl -X GET \
 
 Or in PHP:
 ```php
-require_once 'phpydaemon/Client.php';
+require 'phpydaemon/Client.php';
 $client = new Client();
 print_r($client->getJobs());
 ```
 
-Fetch the status page as html (f.ex. to include it inside some other page in your app):
+Fetch the stats and running jobs as an HTML page:
 ```php
-require_once 'phpydaemon/Client.php';
+require 'phpydaemon/Client.php';
 $client = new Client();
 $html = $client->getStatusHtml();
 ```
-
 
 ### Preserving userId
 
@@ -147,17 +148,34 @@ You can pass user id as a parameter when queueing the job, and act on this in yo
 
 Queue the job with reference to a user id:
 ```php
-require_once 'phpydaemon/Client.php';
+require 'phpydaemon/Client.php';
 $client = new Client();
 $jobId = $client->queue('myapp.FileSystem.delete', array('/'), $myApp->getUser()->getId());
 ```
 
 Switch to that user before running the job in your callback:
 ```php
-require_once 'phpydaemon/Callback.php';
+require 'phpydaemon/Callback.php';
 use phpydaemon\Callback;
 
 $job = Callback::getJob();
 MyApp::switchUser($job->userId);
 Callback::runJob($job);
 ```
+
+
+Todo
+----
+* Process return data and status
+ * Callback.php prepares return data and stdout as JSON but Python daemon does not use it for anything yet
+ * Detect if PHP job is successfull or not, and add option to log/act upon job status
+* Clean up python code
+ * Split up into one file for each class
+ * Remove unused imports, code, commented out blocks
+
+
+Credits
+-------
+
+This tool was developed as part of my work at [Availo AS](http://availo.no) and [eonBIT as](http://eonbit.com).
+
