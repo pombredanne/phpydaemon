@@ -10,7 +10,6 @@ setup(
     download_url  = 'https://github.com/stianstr/phpydaemon/tarball/0.1',
     keywords      = ['php', 'daemon', 'subprocess'],
     classifiers   = [
-        'Development Status :: Beta',
         'Intended Audience :: Developers',
         'Operating System :: POSIX'
     ],
