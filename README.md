@@ -84,6 +84,7 @@ $ curl -X POST \
 Queue a PHP job to run (using PHP)
 ```php
 require 'phpydaemon/Client.php';
+use phpydaemon\Client;
 $client = new Client();
 $jobId = $client->queue('myapp.FileSystem.delete', array('/'));
 ```
@@ -116,6 +117,7 @@ $ curl -X GET \
 Or in PHP:
 ```php
 require 'phpydaemon/Client.php';
+use phpydaemon\Client;
 $client = new Client();
 print_r($client->getStats());
 ```
@@ -130,6 +132,7 @@ $ curl -X GET \
 Or in PHP:
 ```php
 require 'phpydaemon/Client.php';
+use phpydaemon\Client;
 $client = new Client();
 print_r($client->getJobs());
 ```
@@ -137,6 +140,7 @@ print_r($client->getJobs());
 Fetch the stats and running jobs as an HTML page:
 ```php
 require 'phpydaemon/Client.php';
+use phpydaemon\Client;
 $client = new Client();
 $html = $client->getStatusHtml();
 ```
@@ -149,6 +153,7 @@ You can pass user id as a parameter when queueing the job, and act on this in yo
 Queue the job with reference to a user id:
 ```php
 require 'phpydaemon/Client.php';
+use phpydaemon\Client;
 $client = new Client();
 $jobId = $client->queue('myapp.FileSystem.delete', array('/'), $myApp->getUser()->getId());
 ```
