@@ -15,7 +15,7 @@ setup(
         'Operating System :: POSIX'
     ],
     license       = 'MIT',
-    requires      = ['daemon (>=1.6)'],
+    requires      = ['daemon (>=1.6)', 'bottle (>=0.10.6)'],
     scripts       = ['scripts/phpydaemon'],
     package_data  = {'phpydaemon': ['templates/*']},
     data_files    = [
